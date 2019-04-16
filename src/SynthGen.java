@@ -7,8 +7,8 @@ public class SynthGen {
     private int nbIndicator;
     private ArrayList<BoundedValue> indicators;
     private ArrayList<BoundedValue> weights;
-    private int attention;
-    private int nAttention;
+    private float attention;
+    private float nAttention;
 
     public SynthGen(CurrentFunction fun, ArrayList<BoundedValue> w){
         this.nbIndicator = w.size();
@@ -17,15 +17,14 @@ public class SynthGen {
         this.weights = w;
     }
 
-    public int cleanAndGenerate(){
+    public float cleanAndGenerate(){
+        Random rand = new Random();
         this.indicators.clear();
         //genere des indicateurs random entre 1 et 100
         for(int i = 0;i<nbIndicator;i++){
-            indicators.add(new BoundedValue(ThreadLocalRandom.current().nextInt(1, 100 + 1)));
+            indicators.add(new BoundedValue(rand.nextFloat()));
         }
-        attention = fun.compute(indicators,weights);
-        //System.out.println("[DEBUG]Attention:"+attention);
-        nAttention = fun.normalizeTo100(attention,indicators,weights);
+        nAttention = fun.compute(indicators,weights);
         //System.out.println("[DEBUG]nAttention:"+nAttention);
         return nAttention;
     }
