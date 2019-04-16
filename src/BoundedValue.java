@@ -31,3 +31,5 @@ public class BoundedValue {
         return borneMin;
     }
 }
+
+//test
